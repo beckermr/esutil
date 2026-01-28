@@ -1546,13 +1546,6 @@ def match(arr1input, arr2input, presorted=False, isunique=False):
     arr1 = np.atleast_1d(arr1input)
     arr2 = np.atleast_1d(arr2input)
 
-    el = arr1[0]
-
-    if isinstance(el, str) or isinstance(el, bytes):
-        is_string = True
-    else:
-        is_string = False
-
     if (arr1.size == 0) or (arr2.size == 0):
         mess = "Error: arr1 and arr2 must each be non-zero length"
         raise ValueError(mess)
