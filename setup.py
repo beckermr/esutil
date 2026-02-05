@@ -14,7 +14,7 @@ ext_modules = []
 include_dirs = [numpy.get_include()]
 include_dirs += ["esutil/include"]
 
-extra_compile_args = []
+extra_compile_args = ["-Wno-incompatible-pointer-types"]
 extra_link_args = []
 
 #
