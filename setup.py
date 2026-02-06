@@ -114,7 +114,7 @@ def try_compile(cpp_code, compiler, cflags=[], lflags=[]):
 def check_flags(compiler):
     """Check if we need to adjust the standard cflags for specific systems"""
     # Start with a canonical set of flags to use
-    cflags = extra_compile_args)
+    cflags = extra_compile_args
     cppflags = extra_compile_args
     lflags = extra_link_args
 
