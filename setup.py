@@ -115,6 +115,8 @@ def try_compile(cpp_code, compiler, cflags=[], lflags=[]):
 def check_flags(compiler):
     """Check if we need to adjust the standard cflags for specific systems"""
     # Start with a canonical set of flags to use
+    # the way this file gets run by pip, you need copies here even though
+    # these variables are not marked as global.
     cflags = copy.copy(extra_compile_args)
     cppflags = copy.copy(extra_compile_args)
     lflags = copy.copy(extra_link_args)
@@ -139,8 +141,6 @@ class MyBuilder(build_ext):
                 e.extra_compile_args = cflags
                 for flag in lflags:
                     e.extra_link_args.append(flag)
-
-            print(e, e.sources, e.extra_compile_args, flush=True)
 
         # Now run the normal build function.
         build_ext.build_extensions(self)
