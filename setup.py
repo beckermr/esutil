@@ -14,8 +14,11 @@ ext_modules = []
 include_dirs = [numpy.get_include()]
 include_dirs += ["esutil/include"]
 
-extra_compile_args = ["-Wno-incompatible-pointer-types"]
+extra_compile_args = []
 extra_link_args = []
+
+if not sys.platform.startswith("win"):
+    extra_compile_args += ["-Wno-incompatible-pointer-types"]
 
 #
 # Figure out if we need to add any extra flags:
@@ -124,13 +127,17 @@ def check_flags(compiler):
 
 class MyBuilder(build_ext):
     def build_extensions(self):
-        cflags, cppflags, lflags = check_flags(self.compiler)
+        did_compile_test = False
 
         # Add the appropriate extra flags for that compiler.
         for e in self.extensions:
             if any(
                 ['.cc' in f or '.cpp' in f for f in e.sources]
             ):
+                if not did_compile_test:
+                    cflags, cppflags, lflags = check_flags(self.compiler)
+                    did_compile_test = True
+
                 e.extra_compile_args = cflags
                 for flag in lflags:
                     e.extra_link_args.append(flag)
