@@ -139,7 +139,7 @@ class MyBuilder(build_ext):
                 for flag in lflags:
                     e.extra_link_args.append(flag)
 
-        print(e, e.sources, e.extra_compile_args, flush=True)
+            print(e, e.sources, e.extra_compile_args, flush=True)
 
         # Now run the normal build function.
         build_ext.build_extensions(self)
