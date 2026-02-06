@@ -40,7 +40,7 @@ jobs:
       - name: Install code
         env:
             CC: ${{ matrix.compiler }}
-        run: pip install -e . -v
+        run: pip install -e .
 
       - name: lint
         run: |
