@@ -114,7 +114,7 @@ def try_compile(cpp_code, compiler, cflags=[], lflags=[]):
 def check_flags(compiler):
     """Check if we need to adjust the standard cflags for specific systems"""
     # Start with a canonical set of flags to use
-    cflags = extra_compile_args
+    cflags = extra_compile_args)
     cppflags = extra_compile_args
     lflags = extra_link_args
 
@@ -128,17 +128,13 @@ def check_flags(compiler):
 
 class MyBuilder(build_ext):
     def build_extensions(self):
-        did_compile_test = False
+        cflags, cppflags, lflags = check_flags(self.compiler)
 
         # Add the appropriate extra flags for that compiler.
         for e in self.extensions:
             if any(
                 ['.cc' in f or '.cpp' in f for f in e.sources]
             ):
-                if not did_compile_test:
-                    cflags, cppflags, lflags = check_flags(self.compiler)
-                    did_compile_test = True
-
                 e.extra_compile_args = cflags
                 for flag in lflags:
                     e.extra_link_args.append(flag)
