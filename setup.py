@@ -1,3 +1,4 @@
+import copy
 import os
 import sys
 from glob import glob
@@ -114,9 +115,9 @@ def try_compile(cpp_code, compiler, cflags=[], lflags=[]):
 def check_flags(compiler):
     """Check if we need to adjust the standard cflags for specific systems"""
     # Start with a canonical set of flags to use
-    cflags = extra_compile_args
-    cppflags = extra_compile_args
-    lflags = extra_link_args
+    cflags = copy.copy(extra_compile_args)
+    cppflags = copy.copy(extra_compile_args)
+    lflags = copy.copy(extra_link_args)
 
     # Check whether we can safely add -std=c++11
     if try_compile("int main (int argc, char **argv) { return 0; }",
